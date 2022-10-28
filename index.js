@@ -1,7 +1,13 @@
-const Hapi = require('@hapi/hapi')
-const Path = require('path')
+const Hapi = require('@hapi/hapi');
+const Path = require('path');
 
-;(async function () {
+(async function () {
+  const HOST =
+    process.env.NODE_ENV == 'development'
+      ? 'localhost'
+      : process.env.RAILWAY_STATIC_URL;
+  const PORT = process.env.NODE_ENV == 'development' ? 8000 : process.env.PORT;
+
   const server = Hapi.server({
     debug:
       process.env.NODE_ENV == 'development'
@@ -10,16 +16,17 @@ const Path = require('path')
             request: ['*'],
           }
         : undefined,
-    port: 8000,
+    port: PORT,
+    host: HOST,
     routes: {
       files: {
         relativeTo: Path.join(__dirname, 'public'),
       },
     },
-  })
+  });
 
-  await server.register(require('@hapi/vision'))
-  await server.register(require('@hapi/inert'))
+  await server.register(require('@hapi/vision'));
+  await server.register(require('@hapi/inert'));
 
   /*
    * Views
@@ -30,7 +37,7 @@ const Path = require('path')
     engines: { html: require('handlebars') },
     relativeTo: __dirname,
     path: 'public',
-  })
+  });
 
   /**
    *  Routes
@@ -42,32 +49,32 @@ const Path = require('path')
       method: ['GET'],
       path: '/',
       handler: (req, h) => {
-        return h.view('index').code(200)
+        return h.view('index').code(200);
       },
     },
     {
       method: ['GET'],
       path: '/css/main.css',
       handler: (req, h) => {
-        return h.file('css/main.css').code(200)
+        return h.file('css/main.css').code(200);
       },
     },
     {
       method: ['GET'],
       path: '/about',
       handler: (req, h) => {
-        return h.view('about').code(200)
+        return h.view('about').code(200);
       },
     },
     {
       method: ['*'],
       path: '/{any*}',
       handler: (req, h) => {
-        return h.view('404').code(200)
+        return h.view('404').code(200);
       },
     },
-  ])
+  ]);
 
-  await server.start()
-  console.log('Server running at:', server.info.uri)
-})()
+  await server.start();
+  console.log('Server running at:', server.info.uri);
+})();
