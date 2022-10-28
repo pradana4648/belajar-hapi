@@ -6,7 +6,7 @@ const Path = require('path');
     process.env.NODE_ENV == 'development'
       ? 'localhost'
       : 'belajar-hapi-production.up.railway.app';
-  const PORT = process.env.NODE_ENV == 'development' ? 8000 : process.env.PORT;
+  const PORT = process.env.NODE_ENV == 'development' ? 8000 : 3000;
 
   const server = Hapi.server({
     debug:
