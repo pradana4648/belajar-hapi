@@ -23,7 +23,7 @@ const userRoute = [
         .response({
           message: req.route.path,
         })
-        .type('application/json')
+        .type('application/json;charset=utf8')
         .code(200);
     },
     options: {
@@ -33,6 +33,17 @@ const userRoute = [
           password: Joi.string().min(4).required(),
         }),
       },
+    },
+  },
+  {
+    method: 'GET',
+    path: '/login',
+    handler: (req, h) => {
+      return h
+        .view('login', {
+          path: req.route.path,
+        })
+        .code(200);
     },
   },
 ];
