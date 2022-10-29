@@ -4,8 +4,6 @@
  * This route will be used for managing public route and static files
  * based on any request that user made in browser
  *
- *
- *
  */
 
 // TODO: Should added custom config

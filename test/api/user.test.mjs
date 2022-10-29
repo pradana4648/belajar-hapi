@@ -13,25 +13,25 @@ describe('User Route', () => {
     server.stop();
   });
 
-  /// FIX: Need to be fixed, the current result still 404 HTML and not JSON
-  // describe('POST /login', () => {
-  //   it('should return valid payload', async () => {
-  //     const response = await server.inject({
-  //       method: 'POST',
-  //       url: '/login',
-  //       payload: {
-  //         email: 'admin@test.com',
-  //         password: 'admin1234',
-  //       },
-  //       headers: {
-  //         'content-type': 'application/json',
-  //       },
-  //     });
-  //     expect(JSON.parse(response.rawPayload.toJSON())).to.be.equal({
-  //       email: 'admin@test.com',
-  //       password: 'admin1234',
-  //     });
-  //   });
+  describe('POST /login', () => {
+    /// FIX: Need to be fixed, the current result still 404 HTML and not JSON
+    //   it('should return valid payload', async () => {
+    //     const response = await server.inject({
+    //       method: 'POST',
+    //       url: '/login',
+    //       payload: {
+    //         email: 'admin@test.com',
+    //         password: 'admin1234',
+    //       },
+    //       headers: {
+    //         'content-type': 'application/json',
+    //       },
+    //     });
+    //     expect(JSON.parse(response.rawPayload.toJSON())).to.be.equal({
+    //       email: 'admin@test.com',
+    //       password: 'admin1234',
+    //     });
+    //   });
 
     /// FIX: Need to be fixed, the current result still 404 HTML and not JSON
     // it('should return content-type is application/json', async () => {

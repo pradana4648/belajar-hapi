@@ -7,6 +7,7 @@ import corePlugin from './plugin/core/index.mjs';
 import publicRoute from './config/publicRoute.js';
 import unknownRoute from './config/unknownRoute.js';
 import todoRoute from './api/todo.mjs';
+import userRoute from './api/user.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -43,24 +44,31 @@ server.views({
 });
 
 /**
- *  Routes
+ **********
+ * Routes *
+ **********
  *
  * List all available routes for server
  */
 
-/*
- *  Public Route
- */
+/*****************
+ *  Public Route *
+ *****************/
 server.route(publicRoute);
 
-/*
- * Todo Route
- */
+/**************
+ * Todo Route *
+ **************/
 server.route(todoRoute);
 
-/**
- * Unknown Route
- */
+/**************
+ * User route *
+ **************/
+server.route(userRoute);
+
+/*****************
+ * Unknown Route *
+ *****************/
 server.route(unknownRoute);
 
 await server.initialize();
