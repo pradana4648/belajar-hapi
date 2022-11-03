@@ -7,8 +7,6 @@ import { dirname } from 'path';
 import corePlugin from './plugin/core/index.mjs';
 import publicRoute from './config/publicRoute.js';
 import unknownRoute from './config/unknownRoute.js';
-import todoRoute from './api/todo.mjs';
-import userRoute from './api/user.mjs';
 import tokenRoute from './api/token.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -39,6 +37,30 @@ const server = Hapi.server({
 await server.register(corePlugin);
 await server.register(JWT);
 
+/*****************************
+ * Authentication Strategies *
+ *****************************/
+server.auth.strategy('my-jwt', 'jwt', {
+  keys: 'test123',
+  verify: {
+    aud: 'belajar_hapi',
+    iss: 'belajar_iss',
+    sub: false,
+  },
+  validate: async (artifacts, req, h) => {
+    console.dir(artifacts, req);
+    console.log(h);
+    return {
+      isValid: true,
+      credentials: {
+        user: artifacts.decoded.payload.user,
+      },
+    };
+  },
+});
+
+server.auth.default('my-jwt');
+
 /*
  * Views
  *
@@ -66,12 +88,12 @@ server.route(publicRoute);
 /**************
  * Todo Route *
  **************/
-server.route(todoRoute);
+// server.route(todoRoute);
 
 /**************
  * User route *
  **************/
-server.route(userRoute);
+// server.route(userRoute);
 
 /*****************
  * Unknown Route *
@@ -79,29 +101,6 @@ server.route(userRoute);
 server.route(unknownRoute);
 
 server.route(tokenRoute);
-
-// server.auth.strategy('my_jwt_strategy', 'jwt', {
-//   keys: 'some_shared_secret',
-//   verify: {
-//     aud: 'urn:audience:test',
-//     iss: 'urn:issuer:test',
-//     sub: false,
-//     nbf: true,
-//     exp: true,
-//     maxAgeSec: 14400, // 4 hours
-//     timeSkewSec: 15,
-//   },
-//   validate: (artifacts, request, h) => {
-//     return {
-//       isValid: true,
-//       credentials: { user: artifacts.decoded.payload.user },
-//     };
-//   },
-// });
-
-// server.auth.default('my_jwt_strategy');
-
-await server.initialize();
 
 /** @type{import('@hapi/hapi').Server} */
 export const start = async () => {
