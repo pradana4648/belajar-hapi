@@ -14,22 +14,24 @@ export default [
   {
     method: ['GET'],
     path: '/',
-    handler: (req, h) => {
-      return h.view('index').code(200);
+    options: {
+      auth: false,
+      description: 'Halaman awal',
+    },
+    handler: {
+      view: {
+        template: 'index',
+      },
     },
   },
   {
     method: ['GET'],
     path: '/css/main.css',
+    options: {
+      auth: false,
+    },
     handler: (req, h) => {
       return h.file('css/main.css').code(200);
-    },
-  },
-  {
-    method: ['GET'],
-    path: '/about',
-    handler: (req, h) => {
-      return h.view('about').code(200);
     },
   },
 ];

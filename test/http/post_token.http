@@ -1,0 +1,3 @@
+POST localhost:8000/verifyToken
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiZWxhamFyX2hhcGkiLCJpc3MiOiJiZWxhamFyX2lzcyIsImlhdCI6MTY2NzIwMTEyN30.fTkY5sDDHsl45U_d5p2XPuZFw3iRz4bdEaXFvEVPPPVTYW5T_B77sFZTqip-jIUpyuOtZiecDUm0L-VTFvssVQ
+
